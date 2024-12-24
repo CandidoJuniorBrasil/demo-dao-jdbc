@@ -2,6 +2,7 @@ package modelo.dao;
 
 import java.util.List;
 
+import modelo.entidades.Departamento;
 import modelo.entidades.Vendedor;
 
 public interface VendedorDao {
@@ -11,4 +12,5 @@ public interface VendedorDao {
 	void deleteByID(Integer id);
 	Vendedor findById (Integer id);
 	List<Vendedor> findAll();
+	List<Vendedor> findByDepartment(Departamento departamento);
 }
