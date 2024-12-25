@@ -4,7 +4,6 @@ import java.util.List;
 
 import modelo.dao.DaoFabrica;
 import modelo.dao.VendedorDao;
-import modelo.dao.impl.VendedorDaoJDBC;
 import modelo.entidades.Departamento;
 import modelo.entidades.Vendedor;
 
@@ -23,6 +22,12 @@ public class ExecutaODBC {
 		for (Vendedor obj : lista) {
 			System.out.println(obj);
 		}
+		
+		System.out.println("\n=== Teste 3: Vendedor findByAll =====");
+	    lista = vendedorDao.findAll();
+		for (Vendedor obj : lista) {
+			System.out.println(obj);
+		}	
 	}
 
 }
