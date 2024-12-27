@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,14 +26,70 @@ public class VendedorDaoJDBC implements VendedorDao {
 
 	@Override
 	public void insert(Vendedor obj) {
-		// TODO Auto-generated method stub
+	
+		PreparedStatement st = null;
 		
+		try {
+			
+		    st = con.prepareStatement(
+		    		"INSERT INTO seller "
+		    		+"(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+		    		+"VALUES "
+		    		+"(?,?,?,?,?)",
+		    		Statement.RETURN_GENERATED_KEYS);
+		    st.setString(1, obj.getName());
+		    st.setString(2, obj.getEmail());
+		    st.setDate(3,new java.sql.Date(obj.getBirthDate().getTime()));
+		    st.setDouble(4, obj.getBaseSalary());
+		    st.setInt(5, obj.getDepartamento().getId());
+		    
+		    int rowsAffected = st.executeUpdate();
+		    
+		    if (rowsAffected > 0) {
+		    	ResultSet rs = st.getGeneratedKeys();
+		    	if (rs.next()) {
+		    		int id = rs.getInt(1);
+		    		obj.setId(id);
+		    	}
+		    	DB.closeResultSet(rs);
+		    }
+		    else {
+		    	throw new DbException("Erro inesperado! Sem linhas afetadas.");
+		    }
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+		    DB.closeStatement(st);
+		}			
 	}
 
 	@Override
 	public void update(Vendedor obj) {
-		// TODO Auto-generated method stub
 		
+		PreparedStatement st = null;
+		
+		try {
+			
+		    st = con.prepareStatement(
+		    		"UPDATE seller "
+		    		+ "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+		    		+ "WHERE id = ? ");
+		    st.setString(1, obj.getName());
+		    st.setString(2, obj.getEmail());
+		    st.setDate(3,new java.sql.Date(obj.getBirthDate().getTime()));
+		    st.setDouble(4, obj.getBaseSalary());
+		    st.setInt(5, obj.getDepartamento().getId());
+		    st.setInt(6, obj.getId());		    
+		    st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+		    DB.closeStatement(st);
+		}			
 	}
 
 	@Override

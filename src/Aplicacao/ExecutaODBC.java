@@ -1,5 +1,6 @@
 package Aplicacao;
 
+import java.util.Date;
 import java.util.List;
 
 import modelo.dao.DaoFabrica;
@@ -28,6 +29,17 @@ public class ExecutaODBC {
 		for (Vendedor obj : lista) {
 			System.out.println(obj);
 		}	
+		
+		/*System.out.println("\n=== Teste 4: Vendedor Insert =====");
+		Vendedor novoVendedor = new Vendedor((Integer) null, "Cris", "cris@gmail.com", new Date(), 4000.0, departamento);
+		vendedorDao.insert(novoVendedor);
+		System.out.println("Inserido! novo ID = " + novoVendedor.getId());*/
+		
+		System.out.println("\n=== Teste 5: Vendedor atualizado =====");
+		vendedor = vendedorDao.findById(1);
+		vendedor.setName("Marta Maria");
+		vendedorDao.update(vendedor);
+		System.out.println("Vendedor atualizado!");
 	}
 
 }
