@@ -9,11 +9,12 @@ import modelo.dao.VendedorDao;
 import modelo.entidades.Departamento;
 import modelo.entidades.Vendedor;
 
-public class ExecutaODBC {
+public class ExecutaJDBC {
 
 	public static void main(String[] args) {
 	
 		Scanner sc = new Scanner(System.in);
+		
 		VendedorDao vendedorDao = DaoFabrica.criaVendedorDao();
 		System.out.println("=== Teste 1: Encontrando vendedor por departamento =====");
 		Vendedor vendedor = vendedorDao.findById(3);
@@ -32,10 +33,10 @@ public class ExecutaODBC {
 			System.out.println(obj);
 		}	
 		
-		/*System.out.println("\n=== Teste 4: Vendedor Insert =====");
-		Vendedor novoVendedor = new Vendedor((Integer) null, "Cris", "cris@gmail.com", new Date(), 4000.0, departamento);
+		System.out.println("\n=== Teste 4: Vendedor Insert =====");
+		Vendedor novoVendedor = new Vendedor(null, "Cris", "cris@gmail.com", new Date(), 4000.0, departamento);
 		vendedorDao.insert(novoVendedor);
-		System.out.println("Inserido! novo ID = " + novoVendedor.getId());*/
+		System.out.println("Inserido! novo ID = " + novoVendedor.getId());
 		
 		System.out.println("\n=== Teste 5: Atualizando vendedor =====");
 		vendedor = vendedorDao.findById(1);
